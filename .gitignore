@@ -28,4 +28,4 @@ coverage
 *.sw?
 
 .replit
-replit.nix
+replit.*
