@@ -16,7 +16,7 @@
   const times = reactive({seconds: 0, minutes: 0, hours: 0})
   
   watch(props, () => {
-    let seconds = s.value + 0
+    let seconds = (s.value as number || 0) + 0
     let hours = Math.floor(seconds / 60 ** 2)
     seconds -= hours * 60 ** 2
     let minutes = Math.floor(seconds / 60)
@@ -25,7 +25,7 @@
     Object.assign(times, { seconds, minutes, hours })
   })
 
-  const format = v => {
+  const format = (v: any) => {
     if(isNaN(v)) {
       v = 0
     }

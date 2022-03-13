@@ -7,28 +7,28 @@
   import { ref, watch, onMounted } from 'vue'
   import Timer from './components/Timer.vue'
   
-  const seconds = ref<Number>(0)
-  const started = ref<Boolean>(false)
-  let timeId: Number;
+  const seconds = ref(0)
+  const started = ref(false)
+  let timeId: number;
   
   watch([started, seconds], ns => {
     if(ns[0]) {
-      clearTimeout(timeId)
+      clearTimeout(timeId as number)
       timeId = setTimeout(() => {
-        seconds.value += 1
+        (seconds.value as number)++
       }, 1000)
       return
     }
 
-    clearTimeout(timeId)
+    clearTimeout(timeId as number)
   })
 
-  const handlerCounter = _ => {
+  const handlerCounter = () => {
     const counting = started.value
     started.value = !counting
 
     if(counting) {
-      seconds.value++
+      (seconds.value as number)++
     }
   }
 
