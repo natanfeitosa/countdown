@@ -7,9 +7,9 @@
   import { ref, watch, onMounted } from 'vue'
   import Timer from './components/Timer.vue'
   
-  const seconds = ref(0)
-  const started = ref(false)
-  let timeId;
+  const seconds = ref<Number>(0)
+  const started = ref<Boolean>(false)
+  let timeId: Number;
   
   watch([started, seconds], ns => {
     if(ns[0]) {

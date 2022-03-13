@@ -9,11 +9,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { toRef, toRefs, reactive, watch } from 'vue'
+  import { toRef, reactive, watch } from 'vue'
   const props = defineProps({ seconds: Number })
   const s = toRef(props, 'seconds')
 
-  const times = toRefs(reactive({seconds: 0, minutes: 0, hours: 0}))
+  const times = reactive({seconds: 0, minutes: 0, hours: 0})
   
   watch(props, () => {
     let seconds = s.value + 0
