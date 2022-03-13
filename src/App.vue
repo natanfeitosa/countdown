@@ -1,32 +1,71 @@
 <template>
-  <Timer></Timer>
+  <Timer :seconds="seconds" />
+  <button class="initCounter" @click="handlerCounter">{{ started ? 'Parar' : 'Iniciar' }} contagem</button>
 </template>
 
 <script setup lang="ts">
-import Timer from './components/Timer.vue'
+  import { ref, watch, onMounted } from 'vue'
+  import Timer from './components/Timer.vue'
+  
+  const seconds = ref(0)
+  const started = ref(false)
+  let timeId;
+  
+  watch([started, seconds], ns => {
+    if(ns[0]) {
+      clearTimeout(timeId)
+      timeId = setTimeout(() => {
+        seconds.value += 1
+      }, 1000)
+      return
+    }
+
+    clearTimeout(timeId)
+  })
+
+  const handlerCounter = _ => {
+    const counting = started.value
+    started.value = !counting
+
+    if(counting) {
+      seconds.value++
+    }
+  }
+
 </script>
 
 <style>
 @import './assets/base.css';
 
 #app {
-  max-width: 1280px;
+  width: min(500px, 90%);
   margin: 0 auto;
   padding: 2rem;
 
   font-weight: normal;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 0 10px 4px var(--color-border-hover);
+
+  display: inherit;
+  flex-direction: column;
+  align-items: center;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.initCounter {
+  cursor: pointer;
+  padding: 0.42rem 1.32rem;
+  font-weight: 700;
+  font-size: 0.82em;
+  width: 56%;
 
+  background-color: var(--color-text);
+  color: var(--color-heading);
+}
+/* @media (min-width: 1024px) {
   #app {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
-}
+} */
 </style>
